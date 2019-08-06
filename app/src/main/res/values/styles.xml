@@ -1,0 +1,61 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+	
+	<!-- Base application theme. -->
+	<style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+		<!-- Customize your theme here. -->
+		<item name="colorPrimary">@color/colorPrimary</item>
+		<item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+		<item name="colorAccent">@color/colorAccent</item>
+	</style>
+	
+	<style name="CustomActionBar" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+		<item name="android:background">@color/colorPrimary</item>
+		<item name="android:backgroundTint">@android:color/transparent</item>
+		<item name="colorControlActivated">@color/colorDarkWhite</item>
+		<item name="android:textColor">@android:color/white</item>
+		<item name="android:textSize">20sp</item>
+		<item name="android:titleTextColor" tools:targetApi="m">@android:color/white</item>
+	</style>
+	
+	<style name="Contact">
+		<item name="android:textSize">14sp</item>
+		<item name="android:textColor">@color/colorBlack</item>
+	</style>
+	
+	<style name="Contact.Item" parent="Contact" />
+	
+	<style name="Contact.Item.Primary" parent="Contact.Item">
+		<item name="android:textSize">18sp</item>
+		<item name="android:textStyle">bold</item>
+	</style>
+	
+	<style name="Contact.Item.Secondary" parent="Contact.Item">
+		<item name="android:textStyle">bold</item>
+	</style>
+	
+	<style name="Contact.Card" parent="Contact">
+		<item name="android:textSize">12sp</item>
+	</style>
+	
+	<style name="Contact.Card.Primary" parent="Contact.Card">
+		<item name="android:textSize">22sp</item>
+		<item name="android:textStyle">bold</item>
+	</style>
+	
+	<style name="Contact.Card.Secondary" parent="Contact.Card">
+		<item name="android:textColor">@color/colorGrey</item>
+		<item name="android:textStyle">bold</item>
+	</style>
+	
+	<style name="Contact.Card.Desc" parent="Contact.Card">
+		<item name="android:textStyle">bold</item>
+	</style>
+	
+	<style name="Contact.Card.Link" parent="Contact.Card">
+		<item name="android:textSize">18sp</item>
+		<item name="android:autoLink">phone</item>
+		<item name="android:linksClickable">true</item>
+		<item name="android:textColorLink">@color/colorLightBlue</item>
+		<item name="android:textStyle">bold</item>
+	</style>
+</resources>

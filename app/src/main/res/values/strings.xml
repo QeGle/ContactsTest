@@ -1,0 +1,7 @@
+<resources>
+	<string name="app_name">KonturTestapp</string>
+	<string name="search">Search</string>
+	<string name="contacts">Contacts</string>
+	<string name="data_loading_error">Data loading error</string>
+
+</resources>

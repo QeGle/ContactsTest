@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:id="@+id/base_navigation"
+	app:startDestination="@id/listContactF">
+	
+	<fragment
+		android:id="@+id/listContactF"
+		android:name="com.qegle.konturtestapp.ui.fragments.ListContactF"
+		android:label="ListContactF"
+		tools:layout="@layout/f_contacts">
+		<action
+			android:id="@+id/toDetailContactF"
+			app:destination="@id/detailContactF"
+			app:enterAnim="@anim/slide_in_right"
+			app:exitAnim="@anim/slide_out_left"
+			app:popEnterAnim="@anim/slide_in_left"
+			app:popExitAnim="@anim/slide_out_right" />
+	</fragment>
+	
+	<fragment
+		android:id="@+id/detailContactF"
+		android:name="com.qegle.konturtestapp.ui.fragments.DetailContactF"
+		android:label="DetailContactF"
+		tools:layout="@layout/f_contact_card">
+		<argument
+			android:name="contact"
+			app:argType="com.qegle.konturtestapp.vm.model.ContactUI" />
+	</fragment>
+	
+</navigation>

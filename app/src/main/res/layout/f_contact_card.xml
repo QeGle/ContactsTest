@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.appbar.AppBarLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent">
+	
+	<androidx.appcompat.widget.Toolbar
+		android:id="@+id/tbContactCard"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:minHeight="?attr/actionBarSize"
+		android:theme="@style/CustomActionBar"
+		app:navigationIcon="@drawable/ic_arrow_back_white_24dp">
+	
+	</androidx.appcompat.widget.Toolbar>
+	
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:background="@android:color/white"
+		android:orientation="vertical"
+		android:padding="8dp">
+		
+		<TextView
+			android:id="@+id/tvName"
+			style="@style/Contact.Card.Primary"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			tools:text="@tools:sample/full_names" />
+		
+		<TextView
+			android:id="@+id/tvNumber"
+			style="@style/Contact.Card.Link"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="16dp"
+			android:layout_marginBottom="16dp"
+			tools:text="+7 (858) 476-2312" />
+		
+		<TextView
+			android:id="@+id/tvTemperament"
+			style="@style/Contact.Card.Secondary"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginBottom="8dp"
+			tools:text="@tools:sample/last_names" />
+		
+		<TextView
+			android:id="@+id/tvEducationPeriod"
+			style="@style/Contact.Card.Secondary"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginBottom="8dp"
+			tools:text="@tools:sample/date/mmddyy" />
+		
+		<TextView
+			android:id="@+id/tvBiography"
+			style="@style/Contact.Card.Desc"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:ellipsize="end"
+			tools:text="@tools:sample/lorem/random" />
+	</LinearLayout>
+</com.google.android.material.appbar.AppBarLayout>
