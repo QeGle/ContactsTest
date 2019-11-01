@@ -1,4 +1,4 @@
-# SkbkonturTest
+# ContactsTest
 Мобильное приложение, которое отображет список контактов и выполняет поиск по ним. Написано на Kotlin с использованием MVVM, подхода single activity.
 
 <img src="test_case_demo.gif"  height="500" />
