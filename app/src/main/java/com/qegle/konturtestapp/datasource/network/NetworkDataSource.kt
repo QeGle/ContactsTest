@@ -1,11 +1,11 @@
 package com.qegle.konturtestapp.datasource.network
 
-import com.qegle.konturtestapp.datasource.IDatasource
+import com.qegle.konturtestapp.datasource.IDataSource
 import com.qegle.konturtestapp.datasource.model.ContactDS
 import com.qegle.konturtestapp.datasource.network.retrofit.ContactService
 import io.reactivex.Single
 
-class NetworkDatasource : IDatasource {
+class NetworkDataSource : IDataSource {
 	private val service = ContactService(url)
 	
 	override fun get(name: String): Single<List<ContactDS>> {

@@ -1,4 +1,4 @@
-package com.qegle.konturtestapp.vm
+package com.qegle.konturtestapp.presentation.base
 
 import android.app.Application
 import androidx.lifecycle.*

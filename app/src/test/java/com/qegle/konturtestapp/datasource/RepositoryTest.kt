@@ -1,11 +1,11 @@
 package com.qegle.konturtestapp.datasource
 
 import com.google.common.truth.Truth.assertThat
-import com.qegle.konturtestapp.datasource.local.LocalDatasource
-import com.qegle.konturtestapp.datasource.network.NetworkDatasource
-import com.qegle.konturtestapp.datasource.network.NetworkDatasource.Companion.source1
-import com.qegle.konturtestapp.datasource.network.NetworkDatasource.Companion.source2
-import com.qegle.konturtestapp.datasource.network.NetworkDatasource.Companion.source3
+import com.qegle.konturtestapp.datasource.local.LocalDataSource
+import com.qegle.konturtestapp.datasource.network.NetworkDataSource
+import com.qegle.konturtestapp.datasource.network.NetworkDataSource.Companion.source1
+import com.qegle.konturtestapp.datasource.network.NetworkDataSource.Companion.source2
+import com.qegle.konturtestapp.datasource.network.NetworkDataSource.Companion.source3
 import com.qegle.konturtestapp.repository.ContactRepository
 import com.qegle.konturtestapp.util.LongProvider
 import com.qegle.konturtestapp.util.contactsDSList
@@ -16,8 +16,8 @@ import org.mockito.BDDMockito.given
 import org.mockito.Mockito
 
 class RepositoryTest {
-	private val localDatasourceMock = Mockito.mock(LocalDatasource::class.java)
-	private val remoteDatasourceMock = Mockito.mock(NetworkDatasource::class.java)
+	private val localDatasourceMock = Mockito.mock(LocalDataSource::class.java)
+	private val remoteDatasourceMock = Mockito.mock(NetworkDataSource::class.java)
 	private val longDelegate = Mockito.mock(LongProvider::class.java)
 	
 	private val contactRepository = ContactRepository(localDatasourceMock, remoteDatasourceMock, longDelegate)

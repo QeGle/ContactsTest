@@ -1,4 +1,4 @@
-package com.qegle.konturtestapp.domain.usecase
+package com.qegle.konturtestapp.interactor
 
 import com.qegle.konturtestapp.domain.mapper.toContactUCList
 import com.qegle.konturtestapp.domain.model.ContactUC

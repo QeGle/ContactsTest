@@ -3,7 +3,7 @@ package com.qegle.konturtestapp.datasource
 import com.qegle.konturtestapp.datasource.model.ContactDS
 import io.reactivex.Single
 
-interface IDatasource {
+interface IDataSource {
 	
 	fun get(name: String = ""): Single<List<ContactDS>>
 	

@@ -1,4 +1,4 @@
-package com.qegle.konturtestapp.ui.adapters
+package com.qegle.konturtestapp.presentation.common
 
 import android.view.LayoutInflater
 import android.view.View
@@ -21,7 +21,9 @@ class ContactsAdapter(val onItemClickListener: (contact: ContactUI) -> Unit) :
 	}
 	
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-		return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.v_contact_item, parent, false))
+		return ViewHolder(
+            LayoutInflater.from(parent.context).inflate(R.layout.v_contact_item, parent, false)
+        )
 	}
 	
 	override fun onBindViewHolder(holder: ViewHolder, position: Int) {

@@ -1,7 +1,7 @@
 package com.qegle.konturtestapp.domain
 
 import com.google.common.truth.Truth.assertThat
-import com.qegle.konturtestapp.domain.usecase.GetCase
+import com.qegle.konturtestapp.interactor.GetCase
 import com.qegle.konturtestapp.repository.ContactRepository
 import com.qegle.konturtestapp.util.contactsRepoList
 import io.reactivex.Observable
@@ -12,7 +12,8 @@ import org.mockito.Mockito.mock
 
 class GetUseCaseTest {
 	private val mockContactRepository: ContactRepository = mock(ContactRepository::class.java)
-	private val getUseCase = GetCase(mockContactRepository)
+	private val getUseCase =
+        GetCase(mockContactRepository)
 	
 	@Test
 	fun verifyResultWhenGetCaseReturnData() {

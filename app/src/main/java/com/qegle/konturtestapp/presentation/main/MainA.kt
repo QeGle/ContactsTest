@@ -1,4 +1,4 @@
-package com.qegle.konturtestapp.ui.activity
+package com.qegle.konturtestapp.presentation.main
 
 import android.os.Bundle
 import android.view.Menu
