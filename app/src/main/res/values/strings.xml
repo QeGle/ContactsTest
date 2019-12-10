@@ -1,7 +1,11 @@
 <resources>
-	<string name="app_name">Contacts Testapp</string>
-	<string name="search">Search</string>
-	<string name="contacts">Contacts</string>
-	<string name="data_loading_error">Data loading error</string>
+    <string name="app_name">Contacts Testapp</string>
+    <string name="search">Search</string>
+    <string name="contacts">Contacts</string>
 
+    <string name="error_network_default">Не удалось загрузить данные</string>
+    <string name="error_network_unreachable">Не удалось установить соединение с сервером</string>
+    <string name="error_network_untrusted">Недоверенное сетевое соединение</string>
+    <string name="error_network_disconnected">Проверьте подключение и повторите попытку</string>
+    <string name="error_network_unauthorized">Ваша сессия истекла. Войдите заново в учетную запись.</string>
 </resources>

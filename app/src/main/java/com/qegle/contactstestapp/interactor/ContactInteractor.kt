@@ -1,15 +1,11 @@
 package com.qegle.contactstestapp.interactor
 
-import com.qegle.contactstestapp.entity.Contact
-import com.qegle.contactstestapp.entity.Period
-import com.qegle.contactstestapp.entity.UserContact
-import com.qegle.contactstestapp.entity.UserPeriod
-import com.qegle.contactstestapp.entity.UserTemperament
+import com.qegle.contactstestapp.entity.*
 import com.qegle.contactstestapp.repository.ContactRepository
 import com.qegle.contactstestapp.repository.DataFetchStrategy
 import io.reactivex.Single
 import java.text.SimpleDateFormat
-import java.util.Locale
+import java.util.*
 
 class ContactInteractor(private val repository: ContactRepository) {
 
@@ -24,8 +20,8 @@ class ContactInteractor(private val repository: ContactRepository) {
             .map { contacts -> contacts.map { createUserContact(it) } }
     }
 
-    fun find(text: String): Single<List<UserContact>> {
-        return getContacts(DataFetchStrategy.PreferLocal).map { list ->
+    fun find(text: String, strategy: DataFetchStrategy): Single<List<UserContact>> {
+        return getContacts(strategy).map { list ->
             list.filter {
                 val digitPhone = it.phone.replace(numberSpecSymbolsRegex, "")
 

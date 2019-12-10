@@ -31,7 +31,6 @@
         </androidx.appcompat.widget.Toolbar>
 
         <androidx.coordinatorlayout.widget.CoordinatorLayout
-            android:id="@+id/coordinator"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@android:color/white"
@@ -53,7 +52,6 @@
                 app:onRefreshListener="@{() -> vm.refreshData()}">
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvContacts"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     app:itemBinding="@{ contactBinding }"

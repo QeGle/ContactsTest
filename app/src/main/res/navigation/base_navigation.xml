@@ -24,7 +24,7 @@
 		android:id="@+id/detailContactF"
 		android:name="com.qegle.contactstestapp.presentation.details.DetailContactFragment"
 		android:label="DetailContactF"
-		tools:layout="@layout/f_contact_card">
+		tools:layout="@layout/f_contact_details">
 		<argument
 			android:name="id"
 			app:argType="string" />

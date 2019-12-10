@@ -27,16 +27,18 @@ class ListContactViewModel(private val contactInteractor: ContactInteractor) : B
         loadInfo(DataFetchStrategy.Remote, isRefreshing)
     }
 
+    //todo need refactor this
     fun setSearchObservable(observable: Flowable<String>) {
         observable
-            .observeOnUi()
             .debounce(300, TimeUnit.MILLISECONDS)
             .distinctUntilChanged()
-            .switchMap { contactInteractor.find(it).toFlowable() }
+            .switchMap { contactInteractor.find(it, DataFetchStrategy.PreferLocal).toFlowable() }
+            .observeOnUi()
             .map { it.toCollectionDiffResult() }
-            .subscribe({ showContacts(it) }, {
-                it.printStackTrace()
-            })
+            .subscribe(
+                { showContacts(it) },
+                { errorLiveData.postValue(it) }
+            )
             .disposeLater()
     }
 
@@ -46,9 +48,10 @@ class ListContactViewModel(private val contactInteractor: ContactInteractor) : B
             .doOnSubscribe { loadingObservableField.set(true) }
             .doAfterTerminate { loadingObservableField.set(false) }
             .map { it.toCollectionDiffResult() }
-            .subscribe({ showContacts(it) }, {
-                it.printStackTrace()
-            })
+            .subscribe(
+                { showContacts(it) },
+                { errorLiveData.postValue(it) }
+            )
             .disposeLater()
     }
 
@@ -72,18 +75,12 @@ class ListContactViewModel(private val contactInteractor: ContactInteractor) : B
 
     companion object {
         private val callback = object : DiffUtil.ItemCallback<ContactItemViewModel>() {
-            override fun areItemsTheSame(
-                oldItem: ContactItemViewModel,
-                newItem: ContactItemViewModel
-            ): Boolean {
+            override fun areItemsTheSame(oldItem: ContactItemViewModel, newItem: ContactItemViewModel): Boolean {
                 return oldItem.id == newItem.id
             }
 
             @SuppressLint("DiffUtilEquals")
-            override fun areContentsTheSame(
-                oldItem: ContactItemViewModel,
-                newItem: ContactItemViewModel
-            ): Boolean {
+            override fun areContentsTheSame(oldItem: ContactItemViewModel, newItem: ContactItemViewModel): Boolean {
                 return oldItem == newItem
             }
         }

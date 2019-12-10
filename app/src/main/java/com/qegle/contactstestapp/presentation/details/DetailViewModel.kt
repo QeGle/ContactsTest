@@ -30,8 +30,8 @@ class DetailViewModel(
             .doOnSubscribe { isLoading.set(true) }
             .doAfterTerminate { isLoading.set(false) }
             .subscribe(
-                { showData(it) }, {}
-//todo                { dataErrorHandler.handle(it, messenger::showSnackbar) }
+                { showData(it) },
+                { errorLiveData.postValue(it) }
             )
             .disposeLater()
     }

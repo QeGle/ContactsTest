@@ -8,9 +8,10 @@ import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.SearchView.OnQueryTextListener
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import com.qegle.contactstestapp.R
 import com.qegle.contactstestapp.databinding.FContactsBinding
+import com.qegle.contactstestapp.presentation.base.BaseFragment
 import io.reactivex.BackpressureStrategy
 import io.reactivex.Flowable
 import kotlinx.android.synthetic.main.f_contacts.*
@@ -18,11 +19,15 @@ import me.tatarka.bindingcollectionadapter2.BR
 import me.tatarka.bindingcollectionadapter2.ItemBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class ListContactFragment : Fragment() {
-    private val vm by viewModel<ListContactViewModel>()
-    private var mayRefresh = true
+class ListContactFragment : BaseFragment() {
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    private val vm by viewModel<ListContactViewModel>()
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val binding = DataBindingUtil.inflate<FContactsBinding>(inflater, R.layout.f_contacts, container, false)
 
         binding.vm = vm
@@ -39,27 +44,20 @@ class ListContactFragment : Fragment() {
 
         tbContacts.inflateMenu(R.menu.search_menu)
 
-        val searchItem = tbContacts.menu.findItem(R.id.action_search)
-        searchItem.isVisible = false
+        vm.errorLiveData.observe(viewLifecycleOwner, Observer { handleError(it) })
 
+        val searchItem = tbContacts.menu.findItem(R.id.action_search)
         searchItem.setOnActionExpandListener(object : MenuItem.OnActionExpandListener {
             override fun onMenuItemActionExpand(item: MenuItem?): Boolean {
                 val searchView = item?.actionView as? SearchView ?: return false
                 searchView.maxWidth = Integer.MAX_VALUE
                 searchView.queryHint = resources.getString(R.string.search)
 
-
-
                 vm.setSearchObservable(searchView.toFlowable())
-
-                mayRefresh = false
                 return true
             }
 
-            override fun onMenuItemActionCollapse(item: MenuItem?): Boolean {
-                mayRefresh = true
-                return true
-            }
+            override fun onMenuItemActionCollapse(item: MenuItem?) = true
         })
     }
 

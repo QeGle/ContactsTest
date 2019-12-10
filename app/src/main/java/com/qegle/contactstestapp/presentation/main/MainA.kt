@@ -9,7 +9,7 @@ class MainA : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.a_main)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
