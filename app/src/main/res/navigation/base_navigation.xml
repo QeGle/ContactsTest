@@ -7,9 +7,10 @@
 	
 	<fragment
 		android:id="@+id/listContactF"
-		android:name="com.qegle.konturtestapp.presentation.list.ListContactF"
+		android:name="com.qegle.contactstestapp.presentation.list.ListContactFragment"
 		android:label="ListContactF"
-		tools:layout="@layout/f_contacts">
+		tools:layout="@layout/f_contacts"
+		app:startDestination="@id/toDetailContactF">
 		<action
 			android:id="@+id/toDetailContactF"
 			app:destination="@id/detailContactF"
@@ -21,12 +22,12 @@
 	
 	<fragment
 		android:id="@+id/detailContactF"
-		android:name="com.qegle.konturtestapp.presentation.details.DetailContactF"
+		android:name="com.qegle.contactstestapp.presentation.details.DetailContactFragment"
 		android:label="DetailContactF"
 		tools:layout="@layout/f_contact_card">
 		<argument
-			android:name="contact"
-			app:argType="com.qegle.konturtestapp.vm.model.ContactUI" />
+			android:name="id"
+			app:argType="string" />
 	</fragment>
 	
 </navigation>

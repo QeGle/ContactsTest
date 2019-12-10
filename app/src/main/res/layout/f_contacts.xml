@@ -1,48 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.appbar.AppBarLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:app="http://schemas.android.com/apk/res-auto"
-	xmlns:tools="http://schemas.android.com/tools"
-	android:layout_width="match_parent"
-	android:layout_height="match_parent"
-	android:fitsSystemWindows="true">
-	
-	<androidx.appcompat.widget.Toolbar
-		android:id="@+id/tbContacts"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:minHeight="?attr/actionBarSize"
-		android:theme="@style/CustomActionBar"
-		app:title="@string/contacts">
-	
-	</androidx.appcompat.widget.Toolbar>
-	
-	<androidx.coordinatorlayout.widget.CoordinatorLayout
-		android:id="@+id/coordinator"
-		android:layout_width="match_parent"
-		android:layout_height="match_parent"
-		android:background="@android:color/white"
-		android:orientation="vertical">
-		
-		<ProgressBar
-			android:id="@+id/progressBar"
-			style="?android:attr/progressBarStyle"
-			android:layout_width="wrap_content"
-			android:visibility="gone"
-			android:layout_height="wrap_content"
-			android:layout_gravity="center"
-			android:indeterminate="true" />
-		
-		<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-			android:id="@+id/srlContainer"
-			android:layout_width="match_parent"
-			android:layout_height="match_parent">
-			
-			<androidx.recyclerview.widget.RecyclerView
-				android:id="@+id/rvContacts"
-				android:layout_width="match_parent"
-				android:layout_height="match_parent"
-				app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-				tools:listitem="@layout/v_contact_item" />
-		</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-	</androidx.coordinatorlayout.widget.CoordinatorLayout>
-</com.google.android.material.appbar.AppBarLayout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.qegle.contactstestapp.presentation.list.ListContactViewModel" />
+
+        <variable
+            name="contactBinding"
+            type="me.tatarka.bindingcollectionadapter2.ItemBinding" />
+
+    </data>
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/tbContacts"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="@style/CustomActionBar"
+            app:title="@string/contacts">
+
+        </androidx.appcompat.widget.Toolbar>
+
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:id="@+id/coordinator"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/white"
+            android:orientation="vertical">
+
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                app:isVisible="@{ vm.isLoading }" />
+
+            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                android:id="@+id/srlContainer"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:isEnabled="@{ !vm.isLoading }"
+                app:isGone="@{ vm.isLoading }"
+                app:isRefreshing="@{ vm.isRefreshing }"
+                app:onRefreshListener="@{() -> vm.refreshData()}">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvContacts"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:itemBinding="@{ contactBinding }"
+                    app:items="@{ vm.contactItems }"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/v_contact_item" />
+            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+</layout>
