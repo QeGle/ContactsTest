@@ -35,6 +35,7 @@ class ContactRepository(
 
     private fun getContactsLocal(): Single<List<Contact>> {
         return database.contactsDao().all
+            .subscribeOnIo()
     }
 
     private fun getContactsRemote(): Single<List<Contact>> {

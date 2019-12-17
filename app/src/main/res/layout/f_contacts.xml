@@ -46,10 +46,10 @@
                 android:id="@+id/srlContainer"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:isEnabled="@{ !vm.isLoading }"
+                app:isEnabled="@{ !vm.isLoading &amp;&amp; vm.isRefreshEnable }"
                 app:isGone="@{ vm.isLoading }"
                 app:isRefreshing="@{ vm.isRefreshing }"
-                app:onRefreshListener="@{() -> vm.refreshData()}">
+                app:onRefreshListener="@{() -> vm.refreshData() }">
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:layout_width="match_parent"

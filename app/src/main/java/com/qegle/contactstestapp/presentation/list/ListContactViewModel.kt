@@ -8,33 +8,45 @@ import com.qegle.contactstestapp.extensions.observeOnUi
 import com.qegle.contactstestapp.interactor.ContactInteractor
 import com.qegle.contactstestapp.presentation.base.BaseViewModel
 import com.qegle.contactstestapp.presentation.common.DiffCollectionResult
+import com.qegle.contactstestapp.presentation.common.SingleLiveData
 import com.qegle.contactstestapp.repository.DataFetchStrategy
-import io.reactivex.Flowable
+import io.reactivex.subjects.PublishSubject
 import me.tatarka.bindingcollectionadapter2.collections.DiffObservableList
 import java.util.concurrent.TimeUnit
 
 class ListContactViewModel(private val contactInteractor: ContactInteractor) : BaseViewModel() {
 
+    val maySearch = SingleLiveData<Boolean>()
+
     val contactItems = DiffObservableList<ContactItemViewModel>(callback)
+
     val isRefreshing = ObservableBoolean()
+    val isRefreshEnable = ObservableBoolean(true)
     val isLoading = ObservableBoolean()
+
+    private val searchTextSubject = PublishSubject.create<String>()
 
     init {
         loadInfo(DataFetchStrategy.PreferLocal, isLoading)
+        initSearch()
     }
 
     fun refreshData() {
         loadInfo(DataFetchStrategy.Remote, isRefreshing)
     }
 
-    //todo need refactor this
-    fun setSearchObservable(observable: Flowable<String>) {
-        observable
-            .debounce(300, TimeUnit.MILLISECONDS)
+    fun onSearchTextChanged(searchText: CharSequence) {
+        searchTextSubject.onNext(searchText.toString())
+    }
+
+    private fun initSearch() {
+        searchTextSubject.debounce(300, TimeUnit.MILLISECONDS)
             .distinctUntilChanged()
-            .switchMap { contactInteractor.find(it, DataFetchStrategy.PreferLocal).toFlowable() }
+            .doOnNext { isLoading.set(true) }
+            .switchMapSingle { contactInteractor.find(it, DataFetchStrategy.PreferLocal) }
             .observeOnUi()
             .map { it.toCollectionDiffResult() }
+            .doOnNext { isLoading.set(false) }
             .subscribe(
                 { showContacts(it) },
                 { errorLiveData.postValue(it) }
@@ -45,8 +57,14 @@ class ListContactViewModel(private val contactInteractor: ContactInteractor) : B
     private fun loadInfo(strategy: DataFetchStrategy, loadingObservableField: ObservableBoolean) {
         contactInteractor.getContacts(strategy)
             .observeOnUi()
-            .doOnSubscribe { loadingObservableField.set(true) }
-            .doAfterTerminate { loadingObservableField.set(false) }
+            .doOnSubscribe {
+                loadingObservableField.set(true)
+                maySearch.postValue(false)
+            }
+            .doAfterTerminate {
+                loadingObservableField.set(false)
+                maySearch.postValue(true)
+            }
             .map { it.toCollectionDiffResult() }
             .subscribe(
                 { showContacts(it) },
