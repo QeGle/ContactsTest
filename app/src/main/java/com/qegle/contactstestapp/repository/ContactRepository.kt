@@ -28,7 +28,7 @@ class ContactRepository(
     private fun getContactsCached(): Single<List<Contact>> {
         return when {
             syncRepository.isContactsSyncRequired() -> getContactsRemote()
-            syncRepository.isContactsSyncExpired(CACHE_PERIOD) -> getContactsRemote().onErrorResumeNext { getContactsLocal() }
+            syncRepository.isContactsSyncExpired(CONTACT_CACHE_PERIOD) -> getContactsRemote().onErrorResumeNext { getContactsLocal() }
             else -> getContactsLocal()
         }
     }
@@ -67,6 +67,6 @@ class ContactRepository(
         const val source1 = "generated-01.json"
         const val source2 = "generated-02.json"
         const val source3 = "generated-03.json"
-        private val CACHE_PERIOD = TimeUnit.MINUTES.toMillis(1)
+        val CONTACT_CACHE_PERIOD = TimeUnit.MINUTES.toMillis(1)
     }
 }
